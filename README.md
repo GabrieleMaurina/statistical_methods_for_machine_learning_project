@@ -1,0 +1,2 @@
+# statistical_methods_for_machine_learning_project
+Image recognition with Tensorflow
