@@ -1,28 +1,31 @@
 #!/usr/bin/env python
 '''
-This script analyzes the entire fruits folder and saves numpy arrays ready to be
-used by a machine learning model.
+Dataset utility module.
+Make sure to download the fruits-360 dataset first. Then copy it inside this directory.
 '''
 
 
 
 
 
-from os.path import join,basename,isfile
-from os import walk
+from os.path import join,basename,isfile,isdir
+from os import walk,mkdir
 from PIL import Image
 import numpy as np
+from random import shuffle
 
 
 
 
 
-#Dataset folder: change this if you saved the dataset in a different folder
+#Images folder: change this if you saved the dataset in a different folder
 fruits_folder = 'fruits-360'
 #Training folder
 training_folder = 'Training'
 #Testing folder
 testing_folder = 'Test'
+#Save folder
+dataset_folder = 'dataset_folder'
 #Fruits considered
 fruits = ['apple','banana','cherry','grape','peach','pear','pepper','plum','potato','tomato']
 
@@ -59,10 +62,12 @@ def get_data(path,size):
 
 def create_dataset_from_folder(path,size):
     '''Create dataset from folder.'''
-    data = tuple(zip(*get_data(path)))
-    #32 bits is enough since original images are 24 bits
+    data = list(get_data(path,size))
+    shuffle(data)
+    data = tuple(zip(*data))
+    #32 bits are enough since original images have only 24
     x = np.array(data[0],dtype=np.float32)
-    #8 bits are enough since there are less than 256 label
+    #8 bits are enough since there are less than 256 labels
     y = np.array(data[1],dtype=np.uint8)
     return x,y
 
@@ -72,8 +77,8 @@ def create_dataset_from_folder(path,size):
 
 def create_dataset(size):
     '''Create dataset.'''
-    x_train,y_train = create_dataset_from_folder(join(fruits_folder,training_folder))
-    x_test,y_test = create_dataset_from_folder(join(fruits_folder,testing_folder))
+    x_train,y_train = create_dataset_from_folder(join(fruits_folder,training_folder),size)
+    x_test,y_test = create_dataset_from_folder(join(fruits_folder,testing_folder),size)
     return x_train,y_train,x_test,y_test
 
 
@@ -82,10 +87,10 @@ def create_dataset(size):
 
 def load_dataset(size):
     '''Load dataset from binary files.'''
-    x_train = np.load(f'x_train_{size}.npy')
-    y_train = np.load(f'y_train_{size}.npy')
-    x_test = np.load(f'x_test_{size}.npy')
-    y_test = np.load(f'y_test_{size}.npy')
+    x_train = np.load(join(dataset_folder,f'x_train_{size}.npy'))
+    y_train = np.load(join(dataset_folder,f'y_train_{size}.npy'))
+    x_test = np.load(join(dataset_folder,f'x_test_{size}.npy'))
+    y_test = np.load(join(dataset_folder,f'y_test_{size}.npy'))
     return x_train,y_train,x_test,y_test
 
 
@@ -94,10 +99,12 @@ def load_dataset(size):
 
 def save_dataset(x_train,y_train,x_test,y_test,size):
     '''Save dataset to binary files for future use.'''
-    np.save(f'x_train_{size}.npy',x_train)
-    np.save(f'y_train_{size}.npy',y_train)
-    np.save(f'x_test_{size}.npy',x_test)
-    np.save(f'y_test_{size}.npy',y_test)
+    if not isdir(dataset_folder):
+        mkdir(dataset_folder)
+    np.save(join(dataset_folder,f'x_train_{size}.npy'),x_train)
+    np.save(join(dataset_folder,f'y_train_{size}.npy'),y_train)
+    np.save(join(dataset_folder,f'x_test_{size}.npy'),x_test)
+    np.save(join(dataset_folder,f'y_test_{size}.npy'),y_test)
 
 
 
@@ -105,10 +112,10 @@ def save_dataset(x_train,y_train,x_test,y_test,size):
 
 def dataset(size):
     files = (
-        f'x_train_{size}.npy',
-        f'y_train_{size}.npy',
-        f'x_test_{size}.npy',
-        f'y_test_{size}.npy')
+        join(dataset_folder,f'x_train_{size}.npy'),
+        join(dataset_folder,f'y_train_{size}.npy'),
+        join(dataset_folder,f'x_test_{size}.npy'),
+        join(dataset_folder,f'y_test_{size}.npy'))
     for f in files:
         if not isfile(f):
             ds = create_dataset(size)
