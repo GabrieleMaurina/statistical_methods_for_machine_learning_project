@@ -27,7 +27,7 @@ testing_folder = 'Test'
 #Save folder
 dataset_folder = 'dataset_folder'
 #Fruits considered
-fruits = ['apple','banana','cherry','grape','peach','pear','pepper','plum','potato','tomato']
+labels = ['apple','banana','cherry','grape','peach','pear','pepper','plum','potato','tomato']
 
 
 
@@ -36,8 +36,8 @@ fruits = ['apple','banana','cherry','grape','peach','pear','pepper','plum','pota
 def find_label(folder):
     '''Find label given folder name.'''
     folder = folder.lower().split(' ')[0]
-    for i in range(len(fruits)):
-        if folder==fruits[i]:
+    for i in range(len(labels)):
+        if folder==labels[i]:
             return i
     return -1
 

@@ -17,7 +17,7 @@ import numpy as np
 r = 25
 c = 40
 im = (x_train[:r*c]*255).astype(np.uint8)
-im = np.vstack(np.hstack(im[i*c:(i+1)*c])for i in range(r))
+im = np.vstack(tuple(np.hstack(im[i*c:(i+1)*c])for i in range(r)))
 Image.fromarray(im).show()
 exit(0)'''
 
@@ -43,7 +43,7 @@ model.compile(optimizer='adam',
               loss=loss_fn,
               metrics=['accuracy'])
 
-print('### fitting model')
+print('### training model')
 model.fit(x_train, y_train, epochs=5)
 
 print('### evaluating model')
