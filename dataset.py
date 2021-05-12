@@ -53,8 +53,8 @@ def get_data(path,size):
         if label>=0:
             print(root)
             for file in files:
-                #load, resize, make grayscale, scale to [0,1]
-                image = np.mean(np.asarray(Image.open(join(root,file)).resize(resize_tuple)),axis=2)/255
+                #load and resize image
+                image = np.asarray(Image.open(join(root,file)).resize(resize_tuple))
                 yield image,label
 
 
@@ -65,9 +65,7 @@ def create_dataset_from_folder(path,size):
     data = list(get_data(path,size))
     shuffle(data)
     data = tuple(zip(*data))
-    #32 bits are enough since original images have only 24
-    x = np.array(data[0],dtype=np.float32)
-    #8 bits are enough since there are less than 256 labels
+    x = np.array(data[0],dtype=np.uint8)
     y = np.array(data[1],dtype=np.uint8)
     return x,y
 
