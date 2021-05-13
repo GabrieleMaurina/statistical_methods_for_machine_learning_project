@@ -1,0 +1,4 @@
+image_size,model_type,model_depth,model_size,zero_one_loss,n_epochs
+30,conv,3,40,0.05403737658674189,7
+30,conv,3,40,0.12852609308885754,1
+30,conv,3,40,0.06928772919605078,6

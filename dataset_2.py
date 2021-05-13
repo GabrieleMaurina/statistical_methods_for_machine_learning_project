@@ -24,31 +24,29 @@ training_folder = 'Training'
 #Testing folder
 testing_folder = 'Test'
 #Save folder
-dataset_folder = 'dataset_1'
-#Fruits considered
-labels = ['apple','banana','cherry','grape','peach','pear','pepper','plum','potato','tomato']
+dataset_folder = 'dataset_2'
 
 
 
 
 
-def find_label(folder):
+def find_label(folder,labels):
     '''Find label given folder name.'''
-    folder = folder.lower().split(' ')[0]
-    for i in range(len(labels)):
-        if folder==labels[i]:
-            return i
-    return -1
+    if folder in labels: return labels[folder]
+    else:
+        n = len(labels)
+        labels[folder] = n
+        return n
 
 
 
 
 
-def get_data(path,size):
+def get_data(path,size,labels):
     '''Get image data and corresponding labels from folder.'''
     resize_tuple = (size,size)
     for root,dirs,files in walk(path):
-        label = find_label(basename(root))
+        label = find_label(basename(root),labels)
         if label>=0:
             print(root)
             for file in files:
@@ -59,9 +57,10 @@ def get_data(path,size):
 
 
 
-def create_dataset_from_folder(path,size):
+
+def create_dataset_from_folder(path,size,labels):
     '''Create dataset from folder.'''
-    data = list(get_data(path,size))
+    data = list(get_data(path,size,labels))
     shuffle(data)
     data = tuple(zip(*data))
     x = np.array(data[0],dtype=np.uint8)
@@ -74,8 +73,9 @@ def create_dataset_from_folder(path,size):
 
 def create_dataset(size):
     '''Create dataset.'''
-    x_train,y_train = create_dataset_from_folder(join(fruits_folder,training_folder),size)
-    x_test,y_test = create_dataset_from_folder(join(fruits_folder,testing_folder),size)
+    labels = {}
+    x_train,y_train = create_dataset_from_folder(join(fruits_folder,training_folder),size,labels)
+    x_test,y_test = create_dataset_from_folder(join(fruits_folder,testing_folder),size,labels)
     return x_train,y_train,x_test,y_test
 
 
