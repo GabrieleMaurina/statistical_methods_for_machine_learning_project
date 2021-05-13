@@ -25,6 +25,9 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(len(labels))
 ])
 
+model.summary()
+exit(0)
+
 print('### compiling model')
 model.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),

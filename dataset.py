@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 '''
 Dataset utility module.
 Make sure to download the fruits-360 dataset first. Then copy it inside this directory.
