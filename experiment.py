@@ -9,13 +9,17 @@ This is the main experiment.
 
 import tensorflow as tf
 import numpy as np
+from os.path import join,isdir
+from os import mkdir
+from json import dump
 from dataset import dataset,labels
 from models import models
 
 
 
 
-output_file = 'results.csv'
+output_folder = 'results'
+output_file = join(output_folder,'results.csv')
 input_sizes = [i for i in range(10,51,10)]
 
 
@@ -24,9 +28,12 @@ input_sizes = [i for i in range(10,51,10)]
 def main():
     '''Main experiment.'''
 
+    #create output folder if it does not exist
+    if not isdir(output_folder): mkdir(output_folder)
+
     #write header of csv file
     with open(output_file,'w') as csv:
-        csv.write('image_size,model_type,model_depth,model_size,zero_one_loss\n')
+        csv.write('image_size,model_type,model_depth,model_size,zero_one_loss,n_epochs\n')
 
     #for 5 input sizes
     for input_size in input_sizes:
@@ -54,12 +61,14 @@ def main():
 
             #fitting a total of 150 models
             #Maximum 50 epochs, but it can stop early based on val_loss
-            model.fit(
+            history = model.fit(
                 x_train,
                 y_train,
                 epochs=50,
                 validation_data=(x_val,y_val),
                 callbacks=[early_stopping])
+
+            n_epochs = len(history.history['loss'])
 
             #compute zero-one loss by counting how many predictions
             #do not match and dividing by number of images
@@ -68,7 +77,12 @@ def main():
 
             #append data to csv file
             with open(output_file,'a') as csv:
-                csv.write(f'{input_size},{type},{depth},{size},{zero_one_loss}\n')
+                csv.write(f'{input_size},{type},{depth},{size},{zero_one_loss},{n_epochs}\n')
+
+            #save training history
+            history_file = f'{input_size}_{type}_{depth}_{size}'
+            with open(join(output_folder,history_file),'w') as out:
+                dump(history.history,out,sort_keys=True,indent=4)
 
 
 
