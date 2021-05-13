@@ -30,7 +30,7 @@ def conv(input_size,output_size,depth,size):
     for i in range(depth-1):
         layers += [
             tf.keras.layers.MaxPooling2D((2, 2)),
-            tf.keras.layers.Conv2D(size,(3, 3),activation='relu')]
+            tf.keras.layers.Conv2D(size,(3, 3),activation='relu',padding='same')]
     layers += [
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(size,activation='relu'),

@@ -53,7 +53,7 @@ def main():
         for model,depth,size,type in models(input_size,len(labels)):
             print(f'### evaluating model {input_size},{type},{depth},{size}')
 
-            early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss',patience=3)
+            early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss',patience=2)
 
             model.compile(optimizer='adam',
                           loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
@@ -80,7 +80,7 @@ def main():
                 csv.write(f'{input_size},{type},{depth},{size},{zero_one_loss},{n_epochs}\n')
 
             #save training history
-            history_file = f'{input_size}_{type}_{depth}_{size}'
+            history_file = f'{input_size}_{type}_{depth}_{size}.json'
             with open(join(output_folder,history_file),'w') as out:
                 dump(history.history,out,sort_keys=True,indent=4)
 
