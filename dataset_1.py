@@ -24,7 +24,7 @@ training_folder = 'Training'
 #Testing folder
 testing_folder = 'Test'
 #Save folder
-dataset_folder = 'dataset_folder'
+dataset_folder = 'dataset_1'
 #Fruits considered
 labels = ['apple','banana','cherry','grape','peach','pear','pepper','plum','potato','tomato']
 

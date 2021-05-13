@@ -6,7 +6,7 @@ This script tests a basic model.
 import tensorflow as tf
 import tensorflow_docs as tfdocs
 import numpy as np
-from dataset import dataset,labels
+from dataset_1 import dataset,labels
 
 size = 30
 

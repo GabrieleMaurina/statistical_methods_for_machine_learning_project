@@ -12,7 +12,7 @@ import numpy as np
 from os.path import join,isdir,isfile
 from os import mkdir
 from json import dump
-from dataset import dataset,labels
+from dataset_1 import dataset,labels
 from models import models
 
 

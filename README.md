@@ -19,11 +19,11 @@ If you are on linux and you want to record stdout and stderr, you may want to ru
 
 Keep in min that this is a long experiment and can take up to several hours to complete.
 
-### Dataset
+### Dataset 1
 Make sure to download the dataset from https://www.kaggle.com/moltean/fruits, unzip it and save the "fruits-360" folder at the root of this repository.
-When the experiment is run. Datasets are automatically prepared and saved inside the "dataset_folder". This makes future runs faster since it is just a matter of loading pregenerated data.
+When the experiment is run. Datasets are automatically prepared and saved inside the "dataset_1". This makes future runs faster since it is just a matter of loading pregenerated data.
 
-### Results
+### Results 1
 Results of the experiment are saved inside the results folder.
 The file "results.csv" contains the overall findings for all models.
 Files named "{input_size}\_{type}\_{depth}\_{size}.json" contain the training history of a specific model.

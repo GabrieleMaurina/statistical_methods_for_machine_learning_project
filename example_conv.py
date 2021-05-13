@@ -4,7 +4,7 @@ This script tests a basic convolutional model.
 '''
 
 import tensorflow as tf
-from dataset import dataset,labels
+from dataset_1 import dataset,labels
 
 size = 30
 
