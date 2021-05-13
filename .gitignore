@@ -1,7 +1,4 @@
-__pycache__
-fruits-360
-dataset_folder
-x_train*
-y_train*
-x_test*
-y_test*
+__pycache__/
+fruits-360/
+dataset_folder/
+results/
