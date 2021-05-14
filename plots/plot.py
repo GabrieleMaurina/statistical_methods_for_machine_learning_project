@@ -7,6 +7,15 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
+from json import load
+from os.path import join
+from os import walk
+
+
+
+
+
+results_file = 'results.csv'
 
 
 
@@ -71,21 +80,79 @@ def loss_image_size(df,exp):
 
 
 
+def training_history(path):
+	history = list()
+	for root,dirs,files in walk(path):
+		for file in files:
+			if file.endswith('.json'):
+				fields = file.rsplit('.',1)[0].split('_')
+				i_size = fields[0]
+				type = fields[1]
+				depth = fields[2]
+				width = fields[3]
+				with open(join(root,file),'r') as json:
+					model_history = load(json)
+					model_history['i_size'] = int(i_size)
+					model_history['type'] = type
+					model_history['depth'] = int(depth)
+					model_history['width'] = int(width)
+					history.append(model_history)
+	return history
+
+
+
+
+
+def history_accuracy_image_size(history,exp):
+	for i in range(10,51,10):
+		_,ax = plt.subplots()
+		for model_history in history:
+			if model_history['i_size'] == i:
+				plt.plot(model_history['accuracy'])
+		plt.title(f'Exp{exp}: Accuracy vs Epochs (size={i})')
+		plt.xlabel('Epochs')
+		plt.ylabel('Accuracy')
+		plt.savefig(f'e{exp}_{i}_history_accuracy_image_size.pdf')
+		plt.close()
+
+
+
+
+
+def history_loss_image_size(history,exp):
+	for i in range(10,51,10):
+		_,ax = plt.subplots()
+		for model_history in history:
+			if model_history['i_size'] == i:
+				plt.plot(model_history['loss'])
+		plt.title(f'Exp{exp}: Loss vs Epochs (size={i})')
+		plt.xlabel('Epochs')
+		plt.ylabel('Loss')
+		plt.savefig(f'e{exp}_{i}_history_loss_image_size.pdf')
+		plt.close()
+
+
+
+
+
 def plot_experiment(path,exp):
 	'''Generate plots for experiment.'''
-	df = pd.read_csv(path)
+	df = pd.read_csv(join(path,results_file))
 	print(df)
+	history = training_history(path)
 	loss_epochs(df,exp)
 	loss_width(df,exp)
 	loss_image_size(df,exp)
+	history_accuracy_image_size(history,exp)
+	history_loss_image_size(history,exp)
 
 
 
 
 
 def main():
-	plot_experiment('../results_exp_1/results.csv',1)
-	plot_experiment('../results_exp_2/results.csv',2)
+	plot_experiment('../results_exp_1',1)
+	plot_experiment('../results_exp_2',2)
 
 
 

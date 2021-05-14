@@ -4,3 +4,4 @@ dataset_1/
 dataset_2/
 results/
 demo_model/
+plots/*.pdf
