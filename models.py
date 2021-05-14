@@ -44,7 +44,6 @@ def conv(input_size,output_size,depth,size):
 def models(input_size,output_size):
     '''This generator returns models to test in the experiment.'''
 
-
     #dense layers, different sizes
     for i in range(1,4):
         for j in range(1,6):
