@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-This is a demo. Make sure to run experiment 2 first, so the model will be created, trained and saved.
+This is a demo. Make sure to run "demo_model.py" first, so the model will be created, trained and saved.
 '''
 
 
