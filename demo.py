@@ -17,7 +17,7 @@ from dataset_2 import dataset
 
 
 input_size = 30
-model_name = 'varieties_model'
+model_name = 'demo_model'
 
 
 

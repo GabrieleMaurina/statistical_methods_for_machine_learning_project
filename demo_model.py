@@ -19,7 +19,7 @@ output_size = 132
 depth = 3
 size = 40
 output_file = 'exp2.csv'
-model_name = 'varieties_model'
+model_name = 'demo_model'
 
 
 
