@@ -108,7 +108,9 @@ def history_accuracy_image_size(history,exp):
 		_,ax = plt.subplots()
 		for model_history in history:
 			if model_history['i_size'] == i:
-				plt.plot(model_history['accuracy'])
+				color = 'blue' if model_history['type']=='conv' else 'red'
+				plt.plot(model_history['accuracy'],color=color)
+		plt.legend(['conv','dense'])
 		plt.title(f'Exp{exp}: Accuracy vs Epochs (size={i})')
 		plt.xlabel('Epochs')
 		plt.ylabel('Accuracy')
@@ -124,7 +126,9 @@ def history_loss_image_size(history,exp):
 		_,ax = plt.subplots()
 		for model_history in history:
 			if model_history['i_size'] == i:
-				plt.plot(model_history['loss'])
+				color = 'blue' if model_history['type']=='conv' else 'red'
+				plt.plot(model_history['loss'],color=color)
+		plt.legend(['conv','dense'])
 		plt.title(f'Exp{exp}: Loss vs Epochs (size={i})')
 		plt.xlabel('Epochs')
 		plt.ylabel('Loss')

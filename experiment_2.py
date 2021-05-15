@@ -21,7 +21,7 @@ from models import models
 output_folder = 'results'
 output_file = join(output_folder,'results.csv')
 input_sizes = [i for i in range(10,51,10)]
-n_labels = 132
+n_labels = 131
 
 
 

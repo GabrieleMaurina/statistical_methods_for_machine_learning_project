@@ -35,6 +35,7 @@ def find_label(folder,labels):
     if folder in labels: return labels[folder]
     else:
         n = len(labels)
+        print(n)
         labels[folder] = n
         return n
 
@@ -46,13 +47,14 @@ def get_data(path,size,labels):
     '''Get image data and corresponding labels from folder.'''
     resize_tuple = (size,size)
     for root,dirs,files in walk(path):
-        label = find_label(basename(root),labels)
-        if label>=0:
-            print(root)
-            for file in files:
-                #load and resize image
-                image = np.asarray(Image.open(join(root,file)).resize(resize_tuple))
-                yield image,label
+        if len(files):
+            label = find_label(basename(root),labels)
+            if label>=0:
+                print(root)
+                for file in files:
+                    #load and resize image
+                    image = np.asarray(Image.open(join(root,file)).resize(resize_tuple))
+                    yield image,label
 
 
 
