@@ -1,6 +1,36 @@
 \section{Experiment 1}
 \label{sec:exp1}
-\subsection{Goal}
+Experiment 1 trains and evaluates ANNs on the task to classify images of fruits and vegetables of 10 base types. The goal of the experiment is to try different network types in order to find the best configuration, i.e., the configuration with the lowest zero-one loss.
 \subsection{Setup}
+This experiment is carried out on a 64 bit machine running Fedora 32, with an Intel\textsuperscript{\textregistered} Core\texttrademark{} i7-2670QM CPU @ 2.20GHz and 6GByte of RAM. THe programming language used is Python 3.8\cite{python3}. Tensorflow2\cite{tensorflow2015-whitepaper}, with the Keras\cite{chollet2015keras} interface, is used to create, train and evaluate models. Numpy\cite{harris2020array} is used to store and manipulate data easily.
+
+\textbf{Dataset.} The dataset used is available on \href{https://www.kaggle.com/moltean/fruits}{kaggle.com/moltean/fruits}. It contains 90380 images of fruits and vegetables. Experiment 1 classifies images in 10 base types, namely "apple", "banana", "cherry", "grape", "peach", "pear", "pepper", "plum", "potato" and "tomato". Only the 43513 images that represents these fruit and vegetable types are considered. The images are 100x100px photos, already cropped to fit the subject perfectly.
+
+The script \texttt{dataset\_1.py} is used to manage the dataset. This script performs 5 tasks. 1)It loads images from the dataset. 2)It labels images according to the folder they are in. If the name of the folder starts with one of the 10 labels, the label is attached to the image. Otherwise the image is discarded. 3)It resizes images according to a preferred size. 4)It generates Numpy's n-dimensional arrays containing image data and labels such that they can be easily fed to a machine learning model. The ndarray for image data is of type unsigned 8-bit integer and its shape is \texttt{(ni,is,is,3)}, where \texttt{ni} is the number of images, \texttt{is} is the image side length in pixel, and 3 is the number of channels (r,g,b). The ndarray for labels is of type unsigned 8-bit integer and its shape is \texttt{(ni,)}, where \texttt{ni} is the number of images. Arrays are created both for training and testing sets. 5)Finally, the sctipt stores said arrays in binary format, so that it will load them faster at the next iteration, without having to go through the whole process again.
+
+The script offers a simple interface, consisting of a single function \texttt{dataset(size)}, which takes care of all the aforementioned tasks in the background and returns the dataset, with images of the preferred size, ready to be used by a machine learning model. The \texttt{dataset(size)} function is declared as follows:
+\begin{minted}{python}
+def dataset(size):
+    '''Return dataset with images of preferred size.
+    If dataset already exists, it is loaded from disk, otherwise it is created
+    from the image folder.'''
+    files = (
+        join(dataset_folder,f'x_train_{size}.npy'),
+        join(dataset_folder,f'y_train_{size}.npy'),
+        join(dataset_folder,f'x_test_{size}.npy'),
+        join(dataset_folder,f'y_test_{size}.npy'))
+    for f in files:
+        if not isfile(f):
+            ds = create_dataset(size)
+            save_dataset(*ds,size)
+            return ds
+    return load_dataset(size)
+\end{minted}
+
+\textbf{Models.} The models used differ in size, shape and type. The script \texttt{models.py} handles the creation of models given certain parameters. The parameters supported are depth of the network, i.e., how many layers it has, width of the network, i.e., how many nodes are in each layer, type of network, i.e., DNN or CNN. Furthermore \texttt{models.py} can handle different input and output sizes according to the needs.
+
+\textbf{Execution.}
+
 \subsection{Results}
+\input exp1_table
 \subsection{Reproducing experiment}

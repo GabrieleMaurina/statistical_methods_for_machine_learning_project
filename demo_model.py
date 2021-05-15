@@ -15,7 +15,7 @@ from models import conv
 
 
 input_size = 30
-output_size = 132
+output_size = 131
 depth = 3
 size = 40
 output_file = 'exp2.csv'

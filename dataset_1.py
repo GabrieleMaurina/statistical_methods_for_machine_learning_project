@@ -108,7 +108,7 @@ def save_dataset(x_train,y_train,x_test,y_test,size):
 
 
 def dataset(size):
-    '''Return dataset with images of size.
+    '''Return dataset with images of preferred size.
     If dataset already exists, it is loaded from disk, otherwise it is created
     from the image folder.'''
     files = (

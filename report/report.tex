@@ -5,9 +5,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{booktabs}
-
-
-\setlength{\abovecaptionskip}{0pt}
+\usepackage{hyperref}
 
 \title{Statistical Methods for Machine Learning Report\\[1ex]
 \large Image Classification with Artificial Neural Networks}
@@ -15,6 +13,7 @@
 \date{\today}
 
 \begin{document}
+\bibliographystyle{plain}
 
 \begin{titlepage}
 \maketitle
@@ -26,8 +25,7 @@
 
 \input introduction
 \input exp1
-\input exp1_table
 \input exp2
-\input exp2_table
+\bibliography{bibliography}
 
 \end{document}
