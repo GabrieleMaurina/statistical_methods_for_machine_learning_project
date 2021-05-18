@@ -11,13 +11,14 @@ The setup is very similar to experiment 1. The experiment is run on the same mac
 The results collected are summarized in table\ref{table:exp2}.
 \input exp2_table
 
-Figure\ref{fig:e2_loss_epochs} shows the zero-one loss and the number of epochs of each ANNs, differentiating the DNNs from the CNNs. The lowest losses are achieved by CNNs, however the chart is very scattered and also many DNNs achieve a very low loss.
+Figure\ref{fig:e2_loss_epochs} shows the zero-one loss and the number of epochs of each ANNs, differentiating the DNNs from the CNNs.
 \begin{figure}
 \includegraphics[width=\textwidth]{e2_loss_epochs}
-\caption{Experiment 2: zero-one loss vs epochs}\label{fig:e2_loss_epochs}
+\caption{Experiment 1: zero-one loss vs epochs}\label{fig:e2_loss_epochs}
 \end{figure}
+The average loss achieved by DNNs is 0.29, whereas the average loss achieved by CNNs is 0.19. The minimum loss achieved by DNNs is 0.07, whereas the minimum loss achieved by CNNs is 0.04. The best configuration for DNNs is: depth 1, width 160 and input images of 10x10 pixels. This network was trained for 11 epochs. The best configuration for CNNs is: depth 2, width 24 and input images of 30x30 pixels. This network was trained for 9 epochs. The best DNN uses 10x10 images both in experiment 1 and in experiment 2. All other parameters are different between best networks of both experiments. The best DNN for experiment 1 has 0.12 loss in experiment 2. The best CNN for experiment 1 has 0.10 loss in experiment 2.
 
-Figure\ref{fig:e2_50_loss_width} shows the zero-one loss achieved on images of size 50x50 pixels by ANNs of different depth and width, of type DNN and CNN respectively. The figures show that deeper and wider networks achieve a lower zero-one loss. Note that there is no overfitting in that data because the zero-one loss is computed on the testing set.
+Figure\ref{fig:e2_50_loss_width} shows the zero-one loss achieved on images of size 50x50 pixels by ANNs of different depth and width, of type DNN and CNN respectively. The figures show that deeper and wider networks achieve a lower zero-one loss. Note that small differences in loss do not represent overfitting because loss is computed on the testing set, i.e., on data that was not used during training.
 \begin{figure}
 \includegraphics[width=\textwidth]{e2_50_dense_loss_width}
 \includegraphics[width=\textwidth]{e2_50_conv_loss_width}

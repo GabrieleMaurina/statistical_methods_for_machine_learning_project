@@ -6,13 +6,14 @@ The code to reproduce the both experiments is available at \href{https://github.
     \item install \href{https://pypi.org/project/tensorflow/}{Tensorflow}, \href{https://pypi.org/project/numpy/}{Numpy} and \href{https://pypi.org/project/matplotlib/}{Matplotlib};
     \item download the \href{https://www.kaggle.com/moltean/fruits}{image dataset};
     \item unzip the dataset;
-    \item move the folder fruits-360 at the root of the cloned repository;
+    \item move the folder fruits-360 to the root of the cloned repository;
     \item run experiment 1 with \texttt{python experiment\_1.py};
     \item manually overwrite the \texttt{results\_exp\_1} folder with the newly created \texttt{results} folder;
     \item run experiment 2 with \texttt{python experiment\_2.py};
     \item manually overwrite the \texttt{results\_exp\_2} folder with the newly created \texttt{results} folder;
     \item cd into \texttt{plots/};
     \item generate plots with \texttt{python plots.py};
+    \item run \texttt{stats.py} to get some stats.
 \end{itemize}
 Both experiment 1 and experiment 2 save the results into the \texttt{results} folder. It is important to avoid mixing the results and to move them to the corresponding folders, as indicated in the steps above. This manual step is necessary because the folders \texttt{results\_exp\_1} and \texttt{results\_exp\_2} are versioned and it is undesirable to accidentally overwrite them when testing the experiment scripts. Once one is satisfied with the results, then the folder \texttt{results} should be renamed \texttt{results\_exp\_<number>}. Furthermore, the \texttt{plots.py} script takes the results from the folders \texttt{results\_exp\_1} and \texttt{results\_exp\_2}.
 
