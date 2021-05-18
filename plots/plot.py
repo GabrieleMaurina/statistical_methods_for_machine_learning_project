@@ -81,6 +81,7 @@ def loss_image_size(df,exp):
 
 
 def training_history(path):
+	'''Prepare training histories.'''
 	history = list()
 	for root,dirs,files in walk(path):
 		for file in files:
@@ -104,6 +105,7 @@ def training_history(path):
 
 
 def history_accuracy_image_size(history,exp):
+	'''Generate accuracy history.'''
 	for i in range(10,51,10):
 		_,ax = plt.subplots()
 		for model_history in history:
@@ -111,6 +113,8 @@ def history_accuracy_image_size(history,exp):
 				color = 'blue' if model_history['type']=='conv' else 'red'
 				plt.plot(model_history['accuracy'],color=color)
 		plt.legend(['conv','dense'])
+		ax.get_legend().legendHandles[0].set_color('blue')
+		ax.get_legend().legendHandles[1].set_color('red')
 		plt.title(f'Exp{exp}: Accuracy vs Epochs (size={i})')
 		plt.xlabel('Epochs')
 		plt.ylabel('Accuracy')
@@ -122,6 +126,7 @@ def history_accuracy_image_size(history,exp):
 
 
 def history_loss_image_size(history,exp):
+	'''Generate loss history.'''
 	for i in range(10,51,10):
 		_,ax = plt.subplots()
 		for model_history in history:
@@ -129,6 +134,8 @@ def history_loss_image_size(history,exp):
 				color = 'blue' if model_history['type']=='conv' else 'red'
 				plt.plot(model_history['loss'],color=color)
 		plt.legend(['conv','dense'])
+		ax.get_legend().legendHandles[0].set_color('blue')
+		ax.get_legend().legendHandles[1].set_color('red')
 		plt.title(f'Exp{exp}: Loss vs Epochs (size={i})')
 		plt.xlabel('Epochs')
 		plt.ylabel('Loss')
